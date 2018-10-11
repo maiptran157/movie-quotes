@@ -14,7 +14,11 @@ export const signUp = (userInfo) => {
             })
 
         } catch (error) {
-            console.log('Sign Up Error:', error.message)
+            // console.log('Sign Up Error:', error.message)
+            dispatch({
+                type: types.SIGN_UP_ERROR,
+                error: 'Error creating account'
+            })
         }
     }
 }
@@ -32,7 +36,11 @@ export const signIn = userInfo => async dispatch => {
         })
 
     } catch (error) {
-        console.log('Sign In Error:', error.message)
+        // console.log('Sign In Error:', error.message)
+        dispatch({
+            type: types.SIGN_IN_ERROR,
+            error: 'Invalid Email and/or Password'
+        })
     }
 }
 
@@ -41,4 +49,22 @@ export const signOut = () => {
     return {
         type: types.SIGN_OUT
     };
+}
+
+export const getMovieQuote = () => async dispatch => {
+    try {
+        const axiosConfig = {
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+        }
+        const resp = await axios.get('http://api.reactprototypes.com', axiosConfig);
+        // console.log('Movie Quote Response:', resp);
+        dispatch({
+            type: types.GET_MOVIE_QUOTE,
+            quote: resp.data.message
+        })
+    } catch (err) {
+        console.log('Movie Quote Error:', err.message);
+    }
 }

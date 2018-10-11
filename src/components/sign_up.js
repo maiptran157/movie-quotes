@@ -6,12 +6,12 @@ import { renderInput } from '../helpers';
 
 class SignUp extends Component {
     userSignUp = (values) => {
-        console.log('User Sign Up Info:', values);
+        // console.log('User Sign Up Info:', values);
         this.props.signUp(values);
     }
     render() {
-        console.log('Sign Up Props:', this.props);
-        const { handleSubmit } = this.props;
+        // console.log('Sign Up Props:', this.props);
+        const { handleSubmit, authError } = this.props;
         return (
             <div>
                 <h1 className="center">Sign Up</h1>
@@ -22,6 +22,7 @@ class SignUp extends Component {
                     <div className="row">
                         <div className="col s12 right-align">
                             <button className="btn #f57f17 yellow darken-4">Sign Up</button>
+                            <p className="red-text text-darken-2">{authError}</p>
                         </div>
                     </div>
                 </form>
@@ -51,6 +52,12 @@ SignUp = reduxForm({
     validate: validate
 })(SignUp);
 
-export default connect(null, {
+function mapStateToProps(state) {
+    return {
+        authError: state.user.signUpError
+    }
+}
+
+export default connect(mapStateToProps, {
     signUp: signUp
 })(SignUp)
