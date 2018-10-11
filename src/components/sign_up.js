@@ -6,11 +6,11 @@ import { renderInput } from '../helpers';
 
 class SignUp extends Component {
     userSignUp = (values) => {
-        console.log('User Sign Up Info:', values);
+        // console.log('User Sign Up Info:', values);
         this.props.signUp(values);
     }
     render() {
-        console.log('Sign Up Props:', this.props);
+        // console.log('Sign Up Props:', this.props);
         const { handleSubmit, authError } = this.props;
         return (
             <div>
