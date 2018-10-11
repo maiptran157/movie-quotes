@@ -11,7 +11,7 @@ class SignIn extends Component {
     }
     render() {
         console.log('Sign In Props:', this.props);
-        const { handleSubmit } = this.props;
+        const { handleSubmit, authError } = this.props;
         return (
             <div>
                 <h1 className="center deep-purple-text">Sign In</h1>
@@ -21,6 +21,7 @@ class SignIn extends Component {
                     <div className="row">
                         <div className="col s12 right-align">
                             <button className="btn #5e35b1 deep-purple darken-1">Sign In</button>
+                            <p className="red-text text-darken-2">{authError}</p>
                         </div>
                     </div>
                 </form>
@@ -47,6 +48,12 @@ SignIn = reduxForm({
     validate: validate
 })(SignIn);
 
-export default connect(null, {
+function mapStateToProps(state) {
+    return {
+        authError: state.user.signInError
+    }
+}
+
+export default connect(mapStateToProps, {
     signIn: signIn
 })(SignIn)
